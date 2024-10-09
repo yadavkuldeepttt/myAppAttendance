@@ -21,7 +21,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const Dashboard = ({navigation}) => {
+const AdminDashboard = ({navigation}) => {
   const [loading, setLoading] = useState(true);
 
   const [userName, setUserName] = useState('');
@@ -38,11 +38,11 @@ const Dashboard = ({navigation}) => {
   // };
 
   // Function to fetch user info from the backend using the id from token
-  const fetchUserDetails = async userId => {
+  const fetchAdminDetails = async adminId => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await axios.get(
-        `http://192.168.1.5:5000/api/users/${userId}`,
+        `http://192.168.1.5:5000/api/admin/get-details/${adminId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,11 +50,14 @@ const Dashboard = ({navigation}) => {
         },
       );
 
+      console.log('====================================');
+      console.log(response,'response admin');
+      console.log('====================================');
       if (response.status === 200) {
-        setUserName(response.data.username || 'User'); // Assuming the user's name or other details are returned
+        setUserName(response.data.adminName || 'Admin'); // Assuming the user's name or other details are returned
       }
     } catch (error) {
-      console.error('Error fetching user details:', error);
+      console.error('Error fetching admin details:', error);
     }
   };
 
@@ -77,8 +80,12 @@ const Dashboard = ({navigation}) => {
       if (token) {
         const decodedToken = jwtDecode(token);
 
+        console.log('====================================');
+        console.log(decodedToken,"decodeed token for admin");
+        console.log('====================================');
+
         if (decodedToken.id) {
-          fetchUserDetails(decodedToken.id); // Fetch user details based on the userId from the token
+          fetchAdminDetails(decodedToken.id); // Fetch user details based on the userId from the token
         }
       }
     } catch (error) {
@@ -204,7 +211,7 @@ const Dashboard = ({navigation}) => {
       ) : (
         <SafeAreaView>
           <ScrollView>
-            <LinearGradient colors={['#7F7FD5', '#E9E4F0']} style={{flex: 1}}>
+            <LinearGradient colors={['#f4f5f7', '#E9E4F0']} style={{flex: 1}}>
               <View style={{padding: 12}}>
                 <View
                   style={{
@@ -345,7 +352,7 @@ const Dashboard = ({navigation}) => {
                       <MaterialIcon name="people" size={24} color="black" />
                     </View>
                     <Text style={{marginTop: 7, fontWeight: '600'}}>
-                      Attendance Report
+                    Today Attendance
                     </Text>
                   </Pressable>
                   <Pressable
@@ -370,7 +377,7 @@ const Dashboard = ({navigation}) => {
                       <MaterialIcon name="people" size={24} color="black" />
                     </View>
                     <Text style={{marginTop: 7, fontWeight: '600'}}>
-                      Mark Attendance
+                      Employee List
                     </Text>
                   </Pressable>
                 </View>
@@ -917,4 +924,4 @@ const styles = StyleSheet.create({
     height: '100%', // Full height to center loader
   },
 });
-export default Dashboard;
+export default AdminDashboard;

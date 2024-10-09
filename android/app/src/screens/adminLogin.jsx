@@ -41,7 +41,7 @@ const AdminLogin = ({navigation}) => {
 
         // Verify the token by calling a protected route
         const tokenVerificationResponse = await axios.get(
-          'http://192.168.1.5:5000/protected-route',
+          'http://192.168.1.5:5000/protected-route-admin',
           {
             headers: {
               Authorization: `Bearer ${response.data.token}`, // Include the JWT in the Authorization header
@@ -54,7 +54,7 @@ const AdminLogin = ({navigation}) => {
           Alert.alert('Success', 'Login successful!');
 
           // If login is successful, navigate to HomeScreen
-          navigation.replace('Home');
+          navigation.replace('AdminHome');
         }
       }
     } catch (error) {
@@ -91,7 +91,7 @@ const AdminLogin = ({navigation}) => {
           style={styles.image}
           resizeMode="contain"
         />
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}> Admin Login</Text>
 
         <View style={styles.inputView}>
           <TextInput

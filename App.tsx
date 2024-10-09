@@ -12,61 +12,120 @@ import ForgotPassword from './android/app/src/screens/forgotPassword';
 import AttendanceCalendar from './android/app/src/components/attendanceCalendar';
 import SelfieScreen from './android/app/src/screens/selfieScreen';
 import AttendanceReport from './android/app/src/screens/attendanceReport';
+import AdminDashboard from './android/app/src/screens/adminDashboard';
+import AdminProfile from './android/app/src/screens/adminProfile';
 
 const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName;
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size}) => {
+          let iconName;
 
-        if (route.name === 'Dashboard') {
-          iconName = 'view-dashboard';
-        } else if (route.name === 'Profile') {
-          iconName = 'account-circle';
-        }
+          if (route.name === 'Dashboard') {
+            iconName = 'view-dashboard';
+          } else if (route.name === 'Profile') {
+            iconName = 'account-circle';
+          }
 
-        return <MaterialCommunityIcons name={iconName} color={color} size={size} />;
-      },
-      tabBarActiveTintColor: '#fff',
-      tabBarInactiveTintColor: '#B0BEC5',
-      tabBarStyle: {
-        backgroundColor: '#7F7FD5',
-        paddingBottom: 10,
-        height: 60,
-      },
-      tabBarLabelStyle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-      tabBarIconStyle: {
-        marginTop: 5,
-      },
-    })}
-  >
-    <Tab.Screen
-      name="Dashboard"
-      component={Dashboard}
-      options={{
-        tabBarLabel: 'Dashboard',
-        tabBarBadge: 3, // Add a badge for notification
-        tabBarBadgeStyle: {
-          backgroundColor: '#FF5252',
-          color: '#fff',
-          fontWeight:'700',
+          return (
+            <MaterialCommunityIcons name={iconName} color={color} size={size} />
+          );
         },
-      }}
-    />
-    <Tab.Screen
-      name="Profile"
-      component={Profile}
-      options={{
-        tabBarLabel: 'Profile',
-      }}
-    />
-  </Tab.Navigator>
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#B0BEC5',
+        tabBarStyle: {
+          backgroundColor: '#7F7FD5',
+          paddingBottom: 10,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: 'bold',
+        },
+        tabBarIconStyle: {
+          marginTop: 5,
+        },
+      })}>
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarLabel: 'Dashboard',
+          tabBarBadge: 3, // Add a badge for notification
+          tabBarBadgeStyle: {
+            backgroundColor: '#FF5252',
+            color: '#fff',
+            fontWeight: '700',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function AdminHomeTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size}) => {
+          let iconName;
+
+          if (route.name === 'AdminDashboard') {
+            iconName = 'view-dashboard';
+          } else if (route.name === 'AdminProfile') {
+            iconName = 'account-circle';
+          }
+
+          return (
+            <MaterialCommunityIcons name={iconName} color={color} size={size} />
+          );
+        },
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#B0BEC5',
+        tabBarStyle: {
+          backgroundColor: '#7F7FD5',
+          paddingBottom: 10,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: 'bold',
+        },
+        tabBarIconStyle: {
+          marginTop: 5,
+        },
+      })}>
+      <Tab.Screen
+        name="AdminDashboard"
+        component={AdminDashboard}
+        options={{
+          tabBarLabel: 'Dashboard',
+          tabBarBadge: 3, // Add a badge for notification
+          tabBarBadgeStyle: {
+            backgroundColor: '#FF5252',
+            color: '#fff',
+            fontWeight: '700',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="AdminProfile"
+        component={AdminProfile}
+        options={{
+          tabBarLabel: 'Profile',
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -88,6 +147,12 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeTabs}
+          options={{headerShown: false}} // Hide the stack header for the tab navigation
+        />
+
+        <Stack.Screen
+          name="AdminHome"
+          component={AdminHomeTabs}
           options={{headerShown: false}} // Hide the stack header for the tab navigation
         />
       </Stack.Navigator>
